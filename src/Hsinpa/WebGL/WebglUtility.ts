@@ -80,17 +80,17 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
 export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
 
-    video.playsInline = true;
-    video.muted = true;
-    video.loop = true;
-
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
             video.srcObject = stream;
-            video.play();
+
+            video.onloadedmetadata = function(e) {
+                video.play();
+            }
+
             video.addEventListener(
                 "playing",
                 () => {
