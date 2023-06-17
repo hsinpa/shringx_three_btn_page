@@ -2,7 +2,8 @@ precision mediump float;
   
 uniform sampler2D webcamTex;
 uniform sampler2D videoTex;
-uniform float aspect_ratio;
+uniform float video_aspect_ratio;
+uniform float webcam_aspect_ratio;
 
 varying vec2 v_uv;
 
@@ -12,10 +13,16 @@ bool isGreen(vec4 color){
 
 void main () {
     vec2 uv = v_uv;
-    float remaining = (aspect_ratio - 1.0) * 0.5;
-    vec4 webcam_color = texture2D(webcamTex, vec2(uv.x, 1.0 - uv.y));
+    float remaining = (video_aspect_ratio - 1.0) * 0.5;
 
-    vec2 video_uv = vec2( (uv.x * aspect_ratio) - remaining , (1.0 - uv.y));
+    float webcam_asp = 1.0 - (webcam_aspect_ratio - 1.0);
+
+    float webcam_asp_x = (webcam_aspect_ratio >= 1.0) ? 1.0 : (1.0 - (webcam_aspect_ratio - 1.0));
+    float webcam_asp_y = (webcam_aspect_ratio >= 1.0) ? (1.0 - (webcam_aspect_ratio - 1.0)) : 1.0;
+
+    vec4 webcam_color = texture2D(webcamTex, vec2(uv.x * webcam_asp_x, 1.0 - uv.y * webcam_asp_y ));
+
+    vec2 video_uv = vec2( (uv.x * video_aspect_ratio) - remaining , (1.0 - uv.y));
     float revert_scale = 1.25;
     float offset = (revert_scale - 1.0) * 0.5;
 

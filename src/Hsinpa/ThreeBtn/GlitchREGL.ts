@@ -2,8 +2,8 @@ import REGL, {Regl} from 'regl';
 
 export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : string, browser_aspect_ratio: number,
     webcamTex : REGL.Texture2D, videoTex : REGL.Texture2D) {
-
-    console.log(videoTex.height / videoTex.width);
+        
+        console.log((webcamTex.height / webcamTex.width) / browser_aspect_ratio);
     return regl({
         frag: fragment,
 
@@ -38,7 +38,8 @@ export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : st
         uniforms: {
             webcamTex : webcamTex,
             videoTex : videoTex,
-            aspect_ratio : (videoTex.height / videoTex.width) / browser_aspect_ratio
+            video_aspect_ratio : (videoTex.height / videoTex.width) / browser_aspect_ratio,
+            webcam_aspect_ratio : (webcamTex.height / webcamTex.width) / browser_aspect_ratio,
         },
 
         count: 6

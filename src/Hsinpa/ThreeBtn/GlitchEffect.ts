@@ -54,8 +54,6 @@ class GlitchEffect extends WebGLCanvas {
         //Texture
         this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
 
-        console.log(this._webcamDom.width, this._webcamDom.height)
-
         this._videoDom = await GetVideoTex(Files.Video);
         this._audioDom.play();
         this._videoRestartFlag = false;
@@ -81,8 +79,6 @@ class GlitchEffect extends WebGLCanvas {
         this._videoTexture = this.reglCanvas.texture(this._videoDom);
         
         this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
-
-        console.log(this._videoTexture.width +", "  + this._videoTexture.height);
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
                                                         this.aspect_ratio, this._webcamTexture, this._videoTexture);

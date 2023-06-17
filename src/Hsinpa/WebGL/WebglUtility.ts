@@ -86,7 +86,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
 
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
-            facingMode: 'environment', width: {ideal: camera_width}, height : {ideal: camera_height}
+            facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
             video.srcObject = stream;
