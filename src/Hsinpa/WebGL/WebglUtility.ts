@@ -79,6 +79,8 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
 
 export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
+        video.autoplay = true;
+        video.muted = true;
 
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
@@ -86,11 +88,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         }, audio: false })
         .then(function(stream) {
             video.srcObject = stream;
-
-            video.onloadedmetadata = function(e) {
-                video.play();
-            }
-
+            
             video.addEventListener(
                 "playing",
                 () => {
