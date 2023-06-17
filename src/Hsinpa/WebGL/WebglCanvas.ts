@@ -1,5 +1,6 @@
 
 import REGL, {Regl} from 'regl';
+import { Clamp } from '../UtilityMethod';
 const reglPromise = import('regl');
 
 abstract class WebglCanvas {
@@ -38,18 +39,19 @@ abstract class WebglCanvas {
 
     protected SetCanvasSize() {
         this.SetCanvasToSceenSize(this._webglDom);
-        this.screenHeight = window.innerHeight - 4;
-        this.screenWidth = window.innerWidth ;
 
         this.screenHeight = window.innerHeight - 4;
-        this.screenWidth = window.innerWidth;
+        this.screenWidth = window.innerWidth ;
 
         console.log("Browser Aspect ratio " + (window.innerHeight / window.innerWidth));
     }
 
     public SetCanvasToSceenSize(canvas : HTMLCanvasElement) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight -4;
+        let canvas_height = Clamp( (window.innerHeight -4) * 1.5, window.innerHeight, 2048);
+        let canvas_width = Clamp( (window.innerWidth * 1.5), window.innerWidth, 2048);
+        console.log(`canvas_height ${canvas_height}, canvas_width ${canvas_width}`);
+        canvas.width = canvas_width;
+        canvas.height = canvas_height;
     }
 }
 
