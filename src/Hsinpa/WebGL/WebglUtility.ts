@@ -81,6 +81,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
     const video = document.createElement("video");
         video.autoplay = true;
         video.muted = true;
+        video.playsInline = true;
 
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
@@ -89,7 +90,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         .then(function(stream) {
             video.srcObject = stream;
             video.play();
-            
+
             video.addEventListener(
                 "playing",
                 () => {
