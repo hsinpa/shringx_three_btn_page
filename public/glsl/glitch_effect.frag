@@ -17,7 +17,7 @@ void main () {
 
     float webcam_asp = 1.0 - (webcam_aspect_ratio - 1.0);
 
-    float webcam_asp_x = (webcam_aspect_ratio >= 1.0) ? 1.0 : (1.0 - (webcam_aspect_ratio - 1.0));
+    float webcam_asp_x = (webcam_aspect_ratio >= 1.0) ? 1.0 : webcam_aspect_ratio;
     float webcam_asp_y = (webcam_aspect_ratio >= 1.0) ? (1.0 - (webcam_aspect_ratio - 1.0)) : 1.0;
 
     vec4 webcam_color = texture2D(webcamTex, vec2(uv.x * webcam_asp_x, 1.0 - uv.y * webcam_asp_y ));
