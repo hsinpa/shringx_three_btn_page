@@ -33,7 +33,9 @@ class GlitchEffect extends WebGLCanvas {
         super(webgl_dom);
         this.webglUtility = new WebglUtility();
 
-        this.InitProcess(vertexFilePath, fragmentFilePath);
+        this._webglDom.addEventListener("click", () => {
+            this.InitProcess(vertexFilePath, fragmentFilePath);
+        });
     }
 
     async InitProcess(vertexFilePath : string, fragmentFilePath : string) {
