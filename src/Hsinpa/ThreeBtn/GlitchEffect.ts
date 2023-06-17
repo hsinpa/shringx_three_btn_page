@@ -83,6 +83,8 @@ class GlitchEffect extends WebGLCanvas {
         this._videoDom.addEventListener("timeupdate", (event) => {
             let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
 
+            this._webcamDom.play();
+
             if (this._audioDom.paused && diff > 0.5) {
                 this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
                 //this._audioDom.play();                
