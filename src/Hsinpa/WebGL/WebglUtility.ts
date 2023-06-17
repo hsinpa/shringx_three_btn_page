@@ -82,22 +82,16 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         video.autoplay = true;
         video.muted = true;
         video.playsInline = true;
-
+        video.play();
+        
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
+            console.log(stream);
             video.srcObject = stream;
-            video.play();
-
-            video.addEventListener(
-                "playing",
-                () => {
-                    resolve(video);
-                },
-                true
-            );
+            resolve(video);
         })
         .catch(function(err) {
             console.log("An error occured! " + err);
