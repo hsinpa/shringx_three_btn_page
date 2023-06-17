@@ -47,8 +47,10 @@ abstract class WebglCanvas {
     }
 
     public SetCanvasToSceenSize(canvas : HTMLCanvasElement) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight -4;
+        canvas.width = window.innerWidth * window.devicePixelRatio;
+        canvas.height = (window.innerHeight -4) * window.devicePixelRatio;
+
+        console.log(window.devicePixelRatio);
     }
 }
 
