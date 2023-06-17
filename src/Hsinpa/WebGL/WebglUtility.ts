@@ -47,10 +47,10 @@ class WebglUtility {
 
 export default WebglUtility;
 
-export function GetVideoTex(url: string) : Promise<HTMLVideoElement> {
+export function GetVideoTex(url: string, camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
-
-    let playing = false;   
+    video.width = camera_width;
+    video.height = camera_height;
 
     video.playsInline = true;
     video.muted = true;
