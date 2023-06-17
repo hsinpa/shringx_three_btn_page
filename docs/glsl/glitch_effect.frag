@@ -8,7 +8,7 @@ uniform float webcam_aspect_ratio;
 varying vec2 v_uv;
 
 bool isGreen(vec4 color){
-    return (color.b < 0.8 * color.g) && ( color.r < 0.8 * color.g );
+    return (color.b < 0.8 * color.g) && ( color.r < 0.64 * color.g );
 }
 
 void main () {
@@ -31,13 +31,13 @@ void main () {
     vec4 video_color = texture2D(videoTex, video_uv);
 
     //vec4 mixColor = mix(finalColor, noiseColor, alpha);
-    
-    if (video_color.g >= 0.2) {
 
+    if (video_color.g >= 0.6) {
         if (isGreen(video_color)) {
             video_color = webcam_color;
         }
     }
+
 
     gl_FragColor = video_color;
 }

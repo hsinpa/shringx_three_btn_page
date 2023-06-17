@@ -67,21 +67,25 @@ class GlitchEffect extends WebGLCanvas {
           });
 
         this._videoDom.addEventListener("playing", (event) => {
-            console.log("play");
-
             if (this._videoRestartFlag) {
                 this._audioDom.currentTime = 0;
+                this._audioDom.play();
                 this._videoRestartFlag = false;
-            } else {
-                this._audioDom.currentTime = this._videoDom.currentTime;
             }
-
-            this._audioDom.play();
         });
 
         this._videoDom.addEventListener("pause", (event) => {
             console.log("pause");
             this._audioDom.pause();
+        });
+
+        this._videoDom.addEventListener("timeupdate", (event) => {
+            let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
+
+            if (this._audioDom.paused && diff > 1000) {
+                this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
+                this._audioDom.play();                
+            }
         });
 
         this._videoTexture = this.reglCanvas.texture(this._videoDom);
