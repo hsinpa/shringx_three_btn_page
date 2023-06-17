@@ -92,7 +92,6 @@ class GlitchEffect extends WebGLCanvas {
         this._webglDom.addEventListener("click", ()=> {
             console.log("Click");
             this._audioDom.play();
-            this._webcamDom.play();
         });
 
         this._videoTexture = this.reglCanvas.texture(this._videoDom);

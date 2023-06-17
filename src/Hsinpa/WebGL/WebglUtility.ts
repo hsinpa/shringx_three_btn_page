@@ -77,21 +77,27 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     });
       }
 
-export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
-    const video = document.createElement("video");
-        video.autoplay = true;
+export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {  
+    let video = document.createElement("video");
         video.muted = true;
-        video.playsInline = true;
-        video.play();
-        
+
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
-            console.log(stream);
+    
             video.srcObject = stream;
-            resolve(video);
+            video.play();
+            
+            video.addEventListener(
+                "playing",
+                () => {
+                    resolve(video);
+
+                });
+
+
         })
         .catch(function(err) {
             console.log("An error occured! " + err);
