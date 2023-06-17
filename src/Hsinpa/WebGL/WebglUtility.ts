@@ -88,6 +88,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         }, audio: false })
         .then(function(stream) {
             video.srcObject = stream;
+            video.play();
             
             video.addEventListener(
                 "playing",
