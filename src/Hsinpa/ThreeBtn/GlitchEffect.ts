@@ -56,7 +56,7 @@ class GlitchEffect extends WebGLCanvas {
         this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
 
         this._videoDom = await GetVideoTex(url_path + Files.Video, this.screenWidth, this.screenHeight);
-        this._audioDom.play();
+        // this._audioDom.play();
         this._videoRestartFlag = false;
 
         this._videoDom.addEventListener("ended", (event) => {
@@ -85,8 +85,13 @@ class GlitchEffect extends WebGLCanvas {
 
             if (this._audioDom.paused && diff > 0.5) {
                 this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
-                this._audioDom.play();                
+                //this._audioDom.play();                
             }
+        });
+
+        this._webglDom.addEventListener("click", ()=> {
+            console.log("Click");
+            this._audioDom.play();
         });
 
         this._videoTexture = this.reglCanvas.texture(this._videoDom);
