@@ -66,7 +66,7 @@ class GlitchEffect extends WebGLCanvas {
             this._videoRestartFlag = true;
           });
 
-        this._videoDom.addEventListener("play", (event) => {
+        this._videoDom.addEventListener("playing", (event) => {
             console.log("play");
 
             if (this._videoRestartFlag) {
