@@ -77,7 +77,7 @@ export function GetVideoTex(url: string) : Promise<HTMLVideoElement> {
     });
       }
 
-export function GetWebcamTex() : Promise<HTMLVideoElement> {
+export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
 
     video.playsInline = true;
@@ -85,11 +85,12 @@ export function GetWebcamTex() : Promise<HTMLVideoElement> {
     video.loop = true;
 
     return new Promise((resolve, reject) => {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        navigator.mediaDevices.getUserMedia({ video: {
+            facingMode: 'environment', width: {ideal: camera_width}, height : {ideal: camera_height}
+        }, audio: false })
         .then(function(stream) {
             video.srcObject = stream;
             video.play();
-
             video.addEventListener(
                 "playing",
                 () => {
