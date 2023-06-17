@@ -32,7 +32,7 @@ void main () {
 
     //vec4 mixColor = mix(finalColor, noiseColor, alpha);
     
-    if (video_color.g >= 0.5) {
+    if (video_color.g >= 0.2) {
 
         if (isGreen(video_color)) {
             video_color = webcam_color;
