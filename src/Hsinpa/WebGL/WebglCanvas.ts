@@ -40,7 +40,7 @@ abstract class WebglCanvas {
     protected SetCanvasSize() {
         this.SetCanvasToSceenSize(this._webglDom);
 
-        this.screenHeight = window.innerHeight - 4;
+        this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth ;
 
         console.log("Browser Aspect ratio " + (window.innerHeight / window.innerWidth));
@@ -48,9 +48,7 @@ abstract class WebglCanvas {
 
     public SetCanvasToSceenSize(canvas : HTMLCanvasElement) {
         canvas.width = window.innerWidth * window.devicePixelRatio;
-        canvas.height = (window.innerHeight -4) * window.devicePixelRatio;
-
-        console.log(window.devicePixelRatio);
+        canvas.height = (window.innerHeight) * window.devicePixelRatio;
     }
 }
 

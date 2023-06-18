@@ -57,7 +57,9 @@ class GlitchEffect extends WebGLCanvas {
         //Texture
         this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
 
-        this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
+        let video_url = `${Files.Video}?v=${new Date().getTime()}`;
+
+        this._videoDom = await GetVideoTex(video_url, this.screenWidth, this.screenHeight);
         this._audioDom.play();
         this._videoRestartFlag = false;
 
@@ -68,6 +70,10 @@ class GlitchEffect extends WebGLCanvas {
             this._videoDom.play();
             this._videoRestartFlag = true;
           });
+
+        this._videoDom.addEventListener("waiting", (event) => {
+            console.log("waiting");
+        });
 
         this._videoDom.addEventListener("playing", (event) => {
             if (this._videoRestartFlag) {
@@ -87,7 +93,7 @@ class GlitchEffect extends WebGLCanvas {
 
             if (this._audioDom.paused && diff > 0.5) {
                this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
-                this._audioDom.play();                
+               this._audioDom.play();                
             }
         });
 
@@ -96,17 +102,19 @@ class GlitchEffect extends WebGLCanvas {
         //     this._audioDom.play();
         // });
 
-        this._videoTexture = this.reglCanvas.texture(this._videoDom);
-        console.log(this._videoTexture.width, this._videoTexture.height);
-        
         this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
+        this._videoTexture = this.reglCanvas.texture(this._videoDom);        
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
-                                                        this.aspect_ratio, this._webcamTexture, this._videoTexture);
+            this.aspect_ratio, this._webcamTexture, this._videoTexture);
+
+        this._videoTexture.subimage(this._videoDom);
+
     }
 
     DrawREGLCavnas(regl : Regl, drawCommand : REGL.DrawCommand) {
         let self = this;
+
 
         this.reglFrame = regl.frame(function (context) {  
             //Frame Loop
@@ -115,8 +123,8 @@ class GlitchEffect extends WebGLCanvas {
                 depth: 1
             });
 
-            self._videoTexture.subimage(self._videoDom);
             self._webcamTexture.subimage(self._webcamDom);
+            self._videoTexture.subimage(self._videoDom);
 
             drawCommand({});
         });

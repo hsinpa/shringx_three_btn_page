@@ -49,29 +49,36 @@ export default WebglUtility;
 
 export function GetVideoTex(url: string, camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
+    
     video.width = camera_width;
     video.height = camera_height;
-
     video.playsInline = true;
+    video.crossOrigin = "anonymous";
     video.muted = true;
 
-    video.src = url;
-
     return new Promise((resolve, reject) => {
-        video.addEventListener(
-        "playing",
-        () => {
-            resolve(video);
-        },
-        true
-        );
 
-        video.play();
+        let onPlayEvent = function() {
+            video.removeEventListener("playering", onPlayEvent);
+            resolve(video);
+        }
+        video.addEventListener("playing",onPlayEvent, true);
+
+        video.addEventListener ("canplaythrough",(event) => {
+            console.log("HI");
+            video.play();
+        }, true);
+        
+        video.src = url;
+        video.load();
+
+
     });
 }
 
 export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {  
     let video = document.createElement("video");
+        video.id = "webcam_tex";
         video.muted = true;
         video.playsInline = true;
 
