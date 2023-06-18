@@ -4,6 +4,7 @@ import WebglUtility, {GetVideoTex, GetWebcamTex} from '../WebGL/WebglUtility';
 import {CreateREGLCommandObj } from './GlitchREGL';
 import {DoDelayAction, GetImagePromise} from '../UtilityMethod';
 import { Files } from './ThreeBtnStatic';
+import { Create_TWGL_Engine } from '../WebGL/twgl_helper';
 
 class GlitchEffect extends WebGLCanvas {
     //#region Parameters
@@ -50,13 +51,13 @@ class GlitchEffect extends WebGLCanvas {
     async SetupWebglPipeline(vertexFilePath : string, fragmentFilePath : string) {
         this.reglCanvas  = await this.CreatREGLCanvas (this._webglDom);
         let glslSetting = await this.webglUtility.PrepareREGLShader(vertexFilePath, fragmentFilePath);
-        
+                        //Create_TWGL_Engine(this._context, glslSetting.vertex_shader, glslSetting.fragment_shader);
         //Audio
         this._audioDom = new Audio(Files.Audio);
 
         //Texture
         this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
-        this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
+        this._webcamDom = await GetWebcamTex();
 
         this._audioDom.play();
         this._videoRestartFlag = false;
@@ -95,8 +96,10 @@ class GlitchEffect extends WebGLCanvas {
 
         await DoDelayAction(200);
         this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
+
         await DoDelayAction(200);
         this._videoTexture = this.reglCanvas.texture(this._videoDom);        
+            console.log("pause");
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
             this.aspect_ratio, this._webcamTexture, this._videoTexture);

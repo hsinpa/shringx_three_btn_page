@@ -5,7 +5,7 @@ const reglPromise = import('regl');
 
 abstract class WebglCanvas {
     protected _canvasDom : HTMLCanvasElement;
-    protected _context : CanvasRenderingContext2D;
+    protected _context : WebGLRenderingContext;
     protected _webglDom : HTMLCanvasElement;
     protected _reglContext : Regl;
 
@@ -20,6 +20,7 @@ abstract class WebglCanvas {
 
     constructor( webglQuery : string) {
         this._webglDom = document.querySelector(webglQuery);
+        this._context = this._webglDom.getContext("webgl");
 
         this.RegisterDomEvent();    
         this.SetCanvasSize();

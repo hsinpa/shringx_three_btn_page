@@ -75,9 +75,8 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     });
 }
 
-export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {  
-    let video = document.createElement("video");
-        video.id = "webcam_tex";
+export function GetWebcamTex() : Promise<HTMLVideoElement> {  
+    let video : HTMLVideoElement = document.querySelector("#webcam");
         video.muted = true;
         video.playsInline = true;
 

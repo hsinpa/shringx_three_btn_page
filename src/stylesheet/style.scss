@@ -3,6 +3,14 @@ body {
     margin: 0;
 }
 
+#webcam {
+    position :fixed;    
+    top:-100em;
+    left:-100em;
+    width: 1em;
+    height: 1em;
+}
+
 .cover_art {
     position :fixed;
     z-index: 5;
