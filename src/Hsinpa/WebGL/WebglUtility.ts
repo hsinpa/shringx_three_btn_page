@@ -83,15 +83,14 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         video.autoplay = true;
         video.playsInline = true;
         video.play();
-        
+
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
-    
             video.srcObject = stream;
-            //video.play();
+            video.play();    
             
             video.addEventListener(
                 "playing",
