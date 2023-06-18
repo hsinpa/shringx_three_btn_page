@@ -62,3 +62,16 @@ export function GetImagePromise(imagePath : string) {
 export function GetRelativeURL(url : string) {
     return (url.replace(/^(?:\/\/|[^/]+)*\//, ''));
 }
+
+export function DoDelayAction(time : number) : Promise<void> {
+    return new Promise(function (resolve, reject) {
+        let flag = false;
+        (
+            function waitForFoo(){
+                if (flag) return resolve();
+
+                flag = true;
+                setTimeout(waitForFoo, time);
+        })();
+    });
+}
