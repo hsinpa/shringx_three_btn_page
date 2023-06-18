@@ -33,7 +33,10 @@ class GlitchEffect extends WebGLCanvas {
         super(webgl_dom);
         this.webglUtility = new WebglUtility();
 
-        this._webglDom.addEventListener("click", () => {
+        let coverDom : HTMLBaseElement = document.querySelector(".cover_art");
+
+        coverDom.addEventListener("click", () => {
+            coverDom.style.display = "none";
             this.InitProcess(vertexFilePath, fragmentFilePath);
         });
     }
@@ -46,10 +49,8 @@ class GlitchEffect extends WebGLCanvas {
 
     async SetupWebglPipeline(vertexFilePath : string, fragmentFilePath : string) {
         this.reglCanvas  = await this.CreatREGLCanvas (this._webglDom);
-        
         let glslSetting = await this.webglUtility.PrepareREGLShader(vertexFilePath, fragmentFilePath);
-        let url_path = document.location.href;
-        console.log(url_path + Files.Audio)
+        
         //Audio
         this._audioDom = new Audio(Files.Audio);
         this._audioDom.loop = true;

@@ -80,7 +80,10 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
 export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {  
     let video = document.createElement("video");
         video.muted = true;
-
+        video.autoplay = true;
+        video.playsInline = true;
+        video.play();
+        
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
@@ -88,7 +91,7 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
         .then(function(stream) {
     
             video.srcObject = stream;
-            video.play();
+            //video.play();
             
             video.addEventListener(
                 "playing",
@@ -96,8 +99,6 @@ export function GetWebcamTex(camera_width: number, camera_height: number) : Prom
                     resolve(video);
 
                 });
-
-
         })
         .catch(function(err) {
             console.log("An error occured! " + err);
