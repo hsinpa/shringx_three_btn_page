@@ -53,18 +53,9 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     video.height = camera_height;
 
     video.playsInline = true;
-    video.muted = false;
+    video.muted = true;
 
     video.src = url;
-    video.play();
-
-    video.addEventListener(
-        "timeupdate",
-        (event) => {
-        },
-        true
-    );
-
 
     return new Promise((resolve, reject) => {
         video.addEventListener(
@@ -74,30 +65,33 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
         },
         true
         );
+
+        video.play();
     });
-      }
+}
 
 export function GetWebcamTex(camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {  
     let video = document.createElement("video");
         video.muted = true;
-        video.autoplay = true;
         video.playsInline = true;
-        video.play();
 
     return new Promise((resolve, reject) => {
         navigator.mediaDevices.getUserMedia({ video: {
             facingMode: 'environment'
         }, audio: false })
         .then(function(stream) {
+
             video.srcObject = stream;
-            video.play();    
-            
+
             video.addEventListener(
                 "playing",
-                () => {
-                    resolve(video);
+            () => {
+                resolve(video);
+            },
+            true
+            );
 
-                });
+            video.play();
         })
         .catch(function(err) {
             console.log("An error occured! " + err);
