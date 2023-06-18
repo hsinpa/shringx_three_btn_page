@@ -52,14 +52,14 @@ class GlitchEffect extends WebGLCanvas {
         let glslSetting = await this.webglUtility.PrepareREGLShader(vertexFilePath, fragmentFilePath);
         
         //Audio
-        this._audioDom = new Audio(Files.Audio);
-        this._audioDom.loop = true;
+        // this._audioDom = new Audio(Files.Audio);
+        // this._audioDom.loop = true;
 
         //Texture
         this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
 
         this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
-        this._audioDom.play();
+        //this._audioDom.play();
         this._videoRestartFlag = false;
 
         this._videoDom.addEventListener("ended", (event) => {
@@ -72,24 +72,24 @@ class GlitchEffect extends WebGLCanvas {
 
         this._videoDom.addEventListener("playing", (event) => {
             if (this._videoRestartFlag) {
-                this._audioDom.currentTime = 0;
-                this._audioDom.play();
+                //this._audioDom.currentTime = 0;
+                //this._audioDom.play();
                 this._videoRestartFlag = false;
             }
         });
 
         this._videoDom.addEventListener("pause", (event) => {
             console.log("pause");
-            this._audioDom.pause();
+            //this._audioDom.pause();
         });
 
         this._videoDom.addEventListener("timeupdate", (event) => {
-            let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
+            //let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
 
-            if (this._audioDom.paused && diff > 0.5) {
-                this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
+            //if (this._audioDom.paused && diff > 0.5) {
+               // this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
                 //this._audioDom.play();                
-            }
+            //}
         });
 
         // this._webglDom.addEventListener("click", ()=> {

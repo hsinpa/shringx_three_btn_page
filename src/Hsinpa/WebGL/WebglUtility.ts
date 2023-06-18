@@ -53,7 +53,7 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     video.height = camera_height;
 
     video.playsInline = true;
-    video.muted = true;
+    video.muted = false;
 
     video.src = url;
     video.play();
