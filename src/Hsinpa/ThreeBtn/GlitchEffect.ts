@@ -2,7 +2,7 @@ import WebGLCanvas from '../WebGL/WebglCanvas'
 import REGL, {Regl} from 'regl';
 import WebglUtility, {GetVideoTex, GetWebcamTex} from '../WebGL/WebglUtility';
 import {CreateREGLCommandObj } from './GlitchREGL';
-import {GetImagePromise} from '../UtilityMethod';
+import {DoDelayAction, GetImagePromise} from '../UtilityMethod';
 import { Files } from './ThreeBtnStatic';
 
 class GlitchEffect extends WebGLCanvas {
@@ -55,17 +55,13 @@ class GlitchEffect extends WebGLCanvas {
         this._audioDom = new Audio(Files.Audio);
 
         //Texture
+        this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
         this._webcamDom = await GetWebcamTex(this.screenWidth, this.screenHeight);
 
-        let video_url = `${Files.Video}?v=${new Date().getTime()}`;
-
-        this._videoDom = await GetVideoTex(video_url, this.screenWidth, this.screenHeight);
         this._audioDom.play();
         this._videoRestartFlag = false;
 
         this._videoDom.addEventListener("ended", (event) => {
-            console.log(event);
-
             this._videoDom.currentTime = 0;
             this._videoDom.play();
             this._videoRestartFlag = true;
@@ -97,19 +93,13 @@ class GlitchEffect extends WebGLCanvas {
             }
         });
 
-        // this._webglDom.addEventListener("click", ()=> {
-        //     console.log("Click");
-        //     this._audioDom.play();
-        // });
-
+        await DoDelayAction(200);
         this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
+        await DoDelayAction(200);
         this._videoTexture = this.reglCanvas.texture(this._videoDom);        
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
             this.aspect_ratio, this._webcamTexture, this._videoTexture);
-
-        this._videoTexture.subimage(this._videoDom);
-
     }
 
     DrawREGLCavnas(regl : Regl, drawCommand : REGL.DrawCommand) {

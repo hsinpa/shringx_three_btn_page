@@ -50,8 +50,6 @@ export default WebglUtility;
 export function GetVideoTex(url: string, camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
     const video = document.createElement("video");
     
-    video.width = camera_width;
-    video.height = camera_height;
     video.playsInline = true;
     video.crossOrigin = "anonymous";
     video.muted = true;
@@ -59,13 +57,14 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     return new Promise((resolve, reject) => {
 
         let onPlayEvent = function() {
-            video.removeEventListener("playering", onPlayEvent);
+            video.removeEventListener("playing", onPlayEvent);
             resolve(video);
         }
         video.addEventListener("playing",onPlayEvent, true);
 
         video.addEventListener ("canplaythrough",(event) => {
             console.log("HI");
+
             video.play();
         }, true);
         
