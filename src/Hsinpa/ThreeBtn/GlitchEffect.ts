@@ -56,8 +56,8 @@ class GlitchEffect extends WebGLCanvas {
         // this._audioDom = new Audio(Files.Audio);
 
         //Texture
-        this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
         this._webcamDom = await GetWebcamTex();
+        this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
 
         this._videoRestartFlag = false;
 

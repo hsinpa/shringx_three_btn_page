@@ -63,8 +63,6 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
         video.addEventListener("playing",onPlayEvent, true);
 
         video.addEventListener ("canplaythrough",(event) => {
-            console.log("HI");
-
             video.play();
         }, true);
         
