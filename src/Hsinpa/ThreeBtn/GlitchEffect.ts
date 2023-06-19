@@ -53,13 +53,12 @@ class GlitchEffect extends WebGLCanvas {
         let glslSetting = await this.webglUtility.PrepareREGLShader(vertexFilePath, fragmentFilePath);
                         //Create_TWGL_Engine(this._context, glslSetting.vertex_shader, glslSetting.fragment_shader);
         //Audio
-        this._audioDom = new Audio(Files.Audio);
+        // this._audioDom = new Audio(Files.Audio);
 
         //Texture
         this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
         this._webcamDom = await GetWebcamTex();
 
-        this._audioDom.play();
         this._videoRestartFlag = false;
 
         this._videoDom.addEventListener("ended", (event) => {
@@ -68,31 +67,28 @@ class GlitchEffect extends WebGLCanvas {
             this._videoRestartFlag = true;
           });
 
-        this._videoDom.addEventListener("waiting", (event) => {
-            console.log("waiting");
-        });
 
-        this._videoDom.addEventListener("playing", (event) => {
-            if (this._videoRestartFlag) {
-                this._audioDom.currentTime = 0;
-                this._audioDom.play();
-                this._videoRestartFlag = false;
-            }
-        });
+        // this._videoDom.addEventListener("playing", (event) => {
+        //     if (this._videoRestartFlag) {
+        //         this._audioDom.currentTime = 0;
+        //         this._audioDom.play();
+        //         this._videoRestartFlag = false;
+        //     }
+        // });
 
-        this._videoDom.addEventListener("pause", (event) => {
-            console.log("pause");
-            this._audioDom.pause();
-        });
+        // this._videoDom.addEventListener("pause", (event) => {
+        //     console.log("pause");
+        //     this._audioDom.pause();
+        // });
 
-        this._videoDom.addEventListener("timeupdate", (event) => {
-            let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
+        // this._videoDom.addEventListener("timeupdate", (event) => {
+        //     let diff = Math.abs(this._audioDom.currentTime - this._videoDom.currentTime);
 
-            if (this._audioDom.paused && diff > 0.5) {
-               this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
-               this._audioDom.play();                
-            }
-        });
+        //     if (this._audioDom.paused && diff > 0.5) {
+        //        this._audioDom.currentTime = this._audioDom.currentTime = this._videoDom.currentTime;
+        //        this._audioDom.play();                
+        //     }
+        // });
 
         await DoDelayAction(200);
         this._webcamTexture = this.reglCanvas.texture(this._webcamDom);

@@ -52,7 +52,7 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     
     video.playsInline = true;
     video.crossOrigin = "anonymous";
-    video.muted = true;
+    video.muted = false;
 
     return new Promise((resolve, reject) => {
 
