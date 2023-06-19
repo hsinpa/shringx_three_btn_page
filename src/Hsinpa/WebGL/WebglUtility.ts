@@ -55,15 +55,9 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
     video.muted = false;
 
     return new Promise((resolve, reject) => {
-
-        let onPlayEvent = function() {
-            video.removeEventListener("playing", onPlayEvent);
-            resolve(video);
-        }
-        video.addEventListener("playing",onPlayEvent, true);
-
         video.addEventListener ("canplaythrough",(event) => {
-            video.play();
+            // video.play();
+            resolve(video);
         }, true);
         
         video.src = url;
