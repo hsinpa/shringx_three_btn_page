@@ -48,7 +48,7 @@ class WebglUtility {
 export default WebglUtility;
 
 export function GetVideoTex(url: string, camera_width: number, camera_height: number) : Promise<HTMLVideoElement> {
-    const video = document.createElement("video");
+    const video : HTMLVideoElement = document.querySelector("#video");
     
     video.playsInline = true;
     video.crossOrigin = "anonymous";
@@ -60,10 +60,8 @@ export function GetVideoTex(url: string, camera_width: number, camera_height: nu
             resolve(video);
         }, true);
         
-        video.src = url;
+        //video.src = url;
         video.load();
-
-
     });
 }
 
