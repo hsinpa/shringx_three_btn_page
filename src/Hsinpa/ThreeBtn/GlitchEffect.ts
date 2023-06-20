@@ -57,7 +57,7 @@ class GlitchEffect extends WebGLCanvas {
 
         //Texture
         this._videoDom = await GetVideoTex(Files.Video, this.screenWidth, this.screenHeight);
-        // this._webcamDom = await GetWebcamTex();
+        this._webcamDom = await GetWebcamTex();
         this._videoDom.play();
 
         this._videoRestartFlag = false;
@@ -91,15 +91,16 @@ class GlitchEffect extends WebGLCanvas {
         //     }
         // });
 
-        // await DoDelayAction(200);
-        // this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
-
         await DoDelayAction(200);
+        if (this._webcamDom == null)
+            this._webcamTexture = this.reglCanvas.texture();
+         else 
+            this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
+
         this._videoTexture = this.reglCanvas.texture(this._videoDom);        
-            console.log("pause");
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
-            this.aspect_ratio, this._videoTexture, this._videoTexture);
+            this.aspect_ratio, this._webcamTexture, this._videoTexture);
     }
 
     DrawREGLCavnas(regl : Regl, drawCommand : REGL.DrawCommand) {
@@ -113,7 +114,7 @@ class GlitchEffect extends WebGLCanvas {
                 depth: 1
             });
 
-            // self._webcamTexture.subimage(self._webcamDom);
+            //self._webcamTexture.subimage(self._webcamDom);
             self._videoTexture.subimage(self._videoDom);
 
             drawCommand({});
