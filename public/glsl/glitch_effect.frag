@@ -50,8 +50,9 @@ void main () {
     float spillVal = pow(clamp(baseMask / spill, 0., 1.), 1.5);
     float desat = clamp(video_color.r * 0.2126 + video_color.g * 0.7152 + video_color.b * 0.0722, 0., 1.);
     
-    video_color.rgb = mix(webcam_color.rgb, video_color.rgb, spillVal);
-
+    //video_color.rgb = mix(webcam_color.rgb, video_color.rgb, video_color.a);
+    video_color.rgb = webcam_color.rgb;
+    video_color.a = 1.0;
     //vec4 mixColor = mix(finalColor, noiseColor, alpha);
 
     // if (video_color.g >= 0.4) {
