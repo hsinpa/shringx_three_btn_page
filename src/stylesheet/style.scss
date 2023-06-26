@@ -5,19 +5,19 @@ body {
     height: 100%;
 }
 
-#webcam {
+#webcam, video {
     position :fixed;    
     top:-100em;
     left:-100em;
     width: 1em;
     height: 1em;
 }
-#video {
-    position: absolute;
-    top: 50%; right: 50%;
-    transform: translate(50%,-50%);
-    height: 80%;
-  }
+// #video {
+//     position: absolute;
+//     top: 50%; right: 50%;
+//     transform: translate(50%,-50%);
+//     height: 80%;
+//   }
 
 .cover_art {
     position :fixed;
