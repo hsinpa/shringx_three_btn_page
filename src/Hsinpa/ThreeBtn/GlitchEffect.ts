@@ -115,7 +115,7 @@ class GlitchEffect extends WebGLCanvas {
             });
 
             self._webcamTexture.subimage(self._webcamDom);
-            self._videoTexture.subimage(self._videoDom);
+            // self._videoTexture.subimage(self._videoDom);
 
             drawCommand({});
         });
