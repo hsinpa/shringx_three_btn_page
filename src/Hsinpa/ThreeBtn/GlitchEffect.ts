@@ -98,10 +98,10 @@ class GlitchEffect extends WebGLCanvas {
          else 
             this._webcamTexture = this.reglCanvas.texture(this._webcamDom);
 
-        this._videoTexture = this.reglCanvas.texture(this._videoDom);        
+        //this._videoTexture = this.reglCanvas.texture(this._videoDom);        
 
         this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader,
-            this.aspect_ratio, this._webcamTexture, this._videoTexture);
+            this.aspect_ratio, this._webcamTexture, this._webcamTexture);
     }
 
     DrawREGLCavnas(regl : Regl, drawCommand : REGL.DrawCommand) {
